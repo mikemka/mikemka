@@ -1,24 +1,409 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="color-scheme" content="light dark">
-    <title>An error occured!</title>
-    <style>pre a {text-decoration: none}</style>
+<meta charset="utf-8">
+<script>if(location.protocol==='http:'&&!/^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname))location.replace('https://'+location.host+location.pathname+location.search+location.hash);</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>mikemka // iot &amp; backend web developer</title>
+<meta name="description" content="mikemka // iot &amp; backend web developer. Photo, music. Contact: me@mikemka.ru, Telegram @mikemka.">
+<meta name="author" content="mikemka">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://mikemka.ru/">
+<link rel="me" href="https://t.me/mikemka">
+<link rel="me" href="mailto:me@mikemka.ru">
+<meta property="og:type" content="profile">
+<meta property="og:site_name" content="mikemka">
+<meta property="og:title" content="mikemka // iot &amp; backend web developer">
+<meta property="og:description" content="iot &amp; backend web developer. Photo, music. me@mikemka.ru · @mikemka">
+<meta property="og:url" content="https://mikemka.ru/">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="mikemka // iot &amp; backend web developer">
+<meta name="twitter:description" content="iot &amp; backend web developer. Photo, music. me@mikemka.ru · @mikemka">
+<meta name="theme-color" content="#050505">
+<meta name="color-scheme" content="dark">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23050505'/%3E%3Crect x='12' y='28' width='40' height='9' fill='%23b8392e'/%3E%3C/svg%3E">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "mikemka",
+  "url": "https://mikemka.ru/",
+  "email": "mailto:me@mikemka.ru",
+  "jobTitle": "IoT & backend web developer",
+  "sameAs": ["https://t.me/mikemka"]
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#050505;
+    --ink:#d6d0c4;
+    --ink-dim:#6f6a61;
+    --ink-faint:#3a3733;
+    --accent:#b8392e;
+    --fs:clamp(15px,1.45vw,20px);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;background:var(--bg)}
+  body{
+    font-family:"Lora",Georgia,"Times New Roman",serif;
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+    cursor:crosshair;
+  }
+  #bg{
+    position:fixed;inset:0;width:100%;height:100%;
+    display:block;z-index:0;
+  }
+  .vignette{
+    position:fixed;inset:0;z-index:1;pointer-events:none;
+    background:
+      radial-gradient(ellipse 62% 58% at 50% 46%, rgba(5,5,5,.92) 0%, rgba(5,5,5,.72) 45%, rgba(5,5,5,.15) 100%),
+      radial-gradient(ellipse 120% 100% at 50% 50%, transparent 55%, rgba(0,0,0,.85) 100%);
+  }
+  .grain{
+    position:fixed;inset:-50%;z-index:2;pointer-events:none;
+    opacity:.055;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    animation:grain 1.2s steps(4) infinite;
+  }
+  @keyframes grain{
+    0%{transform:translate(0,0)}25%{transform:translate(-3%,2%)}
+    50%{transform:translate(2%,-3%)}75%{transform:translate(-1%,-1%)}100%{transform:translate(3%,1%)}
+  }
+
+  .page{
+    position:relative;z-index:3;
+    min-height:100vh;min-height:100svh;
+    display:flex;flex-direction:column;
+    padding:clamp(24px,5vh,56px) clamp(20px,6vw,64px) clamp(40px,9vh,96px);
+  }
+  main{
+    flex:1;display:flex;align-items:center;justify-content:center;
+    padding:1vh 0 10vh;
+  }
+  article{
+    max-width:760px;width:100%;
+    will-change:transform;
+  }
+  .label{
+    font-family:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+    font-weight:300;font-size:13px;letter-spacing:.42em;text-transform:uppercase;
+    color:var(--ink-dim);
+    margin-bottom:34px;
+    display:flex;align-items:center;gap:18px;
+  }
+  .label::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--ink-faint),transparent)}
+  .label span{display:inline-block}
+  ol{list-style:none}
+  li{
+    display:grid;grid-template-columns:28px 1fr;gap:14px;
+    font-size:var(--fs);line-height:1.45;font-weight:400;
+    color:var(--ink);
+    margin-bottom:.9em;
+    opacity:0;transform:translateY(10px);
+    animation:rise 1.4s cubic-bezier(.2,.7,.2,1) forwards;
+    transition:color .6s;
+  }
+  li:nth-child(1){animation-delay:.35s}
+  li:nth-child(2){animation-delay:.55s}
+  li:nth-child(3){animation-delay:.75s}
+  li:nth-child(4){animation-delay:.95s}
+  li:nth-child(5){animation-delay:1.15s}
+  .label{opacity:0;animation:rise 1.2s .1s cubic-bezier(.2,.7,.2,1) forwards}
+  footer{opacity:0;animation:rise 1.6s 1.5s cubic-bezier(.2,.7,.2,1) forwards}
+  @keyframes rise{to{opacity:1;transform:none}}
+
+  li .n{
+    font-family:"JetBrains Mono",ui-monospace,monospace;font-weight:300;
+    font-size:.6em;color:var(--ink-dim);padding-top:.55em;letter-spacing:.05em;
+  }
+  li{grid-template-columns:32px 1fr}
+  li p{position:relative}
+  .k{transition:color .4s}
+  .k.blink{animation:blink 1.15s steps(1,end) forwards}
+  @keyframes blink{
+    0%{opacity:1}8%{opacity:.08}14%{opacity:1}22%{opacity:.15}
+    30%{opacity:1}44%{opacity:.35}50%{opacity:1}
+    62%{opacity:.08}66%{opacity:1}100%{opacity:1}
+  }
+  .k.blink .w{color:#f1ece0}
+  .w{
+    display:inline-block;
+    transition:transform .09s steps(2,end),margin .09s steps(2,end),filter .08s,opacity .08s;
+  }
+
+  footer{
+    font-family:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+    font-weight:300;font-size:calc(var(--fs) * .72);letter-spacing:.04em;
+    color:var(--ink-dim);
+    display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:14px 32px;
+  }
+  footer .who{line-height:1.6}
+  footer .who b{font-weight:400;color:var(--ink)}
+  footer .links{display:flex;gap:26px;flex-wrap:wrap}
+  footer a{
+    color:var(--ink);text-decoration:none;position:relative;padding-bottom:3px;
+    transition:color .3s;
+  }
+  footer a::after{
+    content:"";position:absolute;left:0;bottom:0;width:100%;height:1px;
+    background:var(--ink-faint);transition:background .3s,transform .3s;transform-origin:left;
+  }
+  footer a:hover{color:#fff}
+  footer a:hover::after{background:var(--accent)}
+  footer .ask{color:var(--ink-dim);margin-right:6px}
+
+  @media (min-width:1024px){
+    .page{padding-bottom:clamp(20px,6vw,64px)}
+  }
+  @media (max-width:560px){
+    li{grid-template-columns:22px 1fr;gap:10px}
+    footer{flex-direction:column;align-items:flex-start}
+  }
+  @media (prefers-reduced-motion:reduce){
+    li,.label,footer{animation:none;opacity:1;transform:none}
+    .grain{animation:none}
+    .k.blink{animation:none}
+    .w{transition:none}
+  }
+</style>
 </head>
 <body>
-    <pre class="language-javascript" style="overflow-wrap: break-word; white-space: pre-wrap; position: relative">{
-&nbsp;&nbsp;&nbsp;&nbsp;"status": "418 I'm a teapot",
-&nbsp;&nbsp;&nbsp;&nbsp;"info": "The HTTP 418 I'm a teapot client error response code indicates that the server refuses to brew coffee because it is, permanently, a teapot. A combined coffee/tea pot that is temporarily out of coffee should instead return 503.",
-&nbsp;&nbsp;&nbsp;&nbsp;"contact_me": [
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://t.me/mikemka">"Telegram"</a>,
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="mailto:me@mikemka.ru">"Email"</a>,
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://vk.com/mikemka">"VK"</a>,
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://github.com/mikemka">"GitHub"</a>
-&nbsp;&nbsp;&nbsp;&nbsp;],
-}</pre>
-    <script src="assets/js/https.js"></script>
+<canvas id="bg" aria-hidden="true"></canvas>
+<div class="vignette" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+
+<div class="page">
+  <main>
+    <article>
+      <div class="label"><span>Статья 29</span></div>
+      <ol>
+        <li><span class="n">1</span><p>Каждому <span class="k">гарантируется</span> <span class="k">свобода мысли</span> и <span class="k">слова</span>.</p></li>
+        <li><span class="n">2</span><p><span class="k">Не допускаются</span> <span class="k">пропаганда или агитация</span>, возбуждающие <span class="k">социальную</span>, <span class="k">расовую</span>, <span class="k">национальную</span> или <span class="k">религиозную</span> <span class="k">ненависть и вражду</span>. <span class="k">Запрещается пропаганда</span> социального, расового, национального, религиозного или языкового <span class="k">превосходства</span>.</p></li>
+        <li><span class="n">3</span><p><span class="k">Никто не может</span> быть <span class="k">принужден</span> к выражению <span class="k">своих мнений</span> и <span class="k">убеждений</span> или <span class="k">отказу от них</span>.</p></li>
+        <li><span class="n">4</span><p>Каждый <span class="k">имеет право</span> <span class="k">свободно искать</span>, <span class="k">получать</span>, <span class="k">передавать</span>, <span class="k">производить</span> и <span class="k">распространять</span> <span class="k">информацию</span> любым <span class="k">законным способом</span>.</p></li>
+        <li><span class="n">5</span><p>Гарантируется <span class="k">свобода массовой информации</span>. <span class="k">Цензура</span> <span class="k">запрещается</span>.</p></li>
+      </ol>
+    </article>
+  </main>
+
+  <footer>
+    <div class="who">
+      <b>iot · backend web developer</b><br>
+      photo, music
+    </div>
+    <div class="links">
+      <span class="ask">contact me</span>
+      <a href="mailto:me@mikemka.ru">me@mikemka.ru</a>
+      <a href="https://t.me/mikemka" target="_blank" rel="noopener">@mikemka</a>
+    </div>
+  </footer>
+</div>
+
+<script>
+(() => {
+  const canvas = document.getElementById('bg');
+  const ctx = canvas.getContext('2d', { alpha: false });
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const POOL = 'АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдежзиклмнопрстуфхцчшщыэюя0123456789.,;:!?§№—«»/\\|_';
+  const BLOCKS = '█▓▒░■▪';
+
+  let W, H, cols, rows, cell, cells, dpr;
+  const mouse = { x: -1e4, y: -1e4, tx: -1e4, ty: -1e4, active: false };
+  const RADIUS = 190;
+
+  function rndChar() { return POOL[(Math.random() * POOL.length) | 0]; }
+  function rndBlock() { return BLOCKS[(Math.random() * BLOCKS.length) | 0]; }
+
+  function build() {
+    dpr = Math.min(devicePixelRatio || 1, 2);
+    W = innerWidth; H = innerHeight;
+    canvas.width = W * dpr; canvas.height = H * dpr;
+    canvas.style.width = W + 'px'; canvas.style.height = H + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    cell = W < 600 ? 15 : 17;
+    cols = Math.ceil(W / cell) + 1;
+    rows = Math.ceil(H / cell) + 1;
+    cells = new Array(cols * rows);
+    for (let i = 0; i < cells.length; i++) {
+      const block = Math.random() < 0.045;
+      cells[i] = {
+        ch: block ? rndBlock() : rndChar(),
+        block,
+        base: 0.035 + Math.random() * 0.075,
+        e: 0,
+        redact: 0,
+      };
+    }
+    ctx.fillStyle = '#050505';
+    ctx.fillRect(0, 0, W, H);
+    ctx.font = `300 ${cell - 4}px "JetBrains Mono", ui-monospace, Menlo, monospace`;
+    ctx.textBaseline = 'middle';
+    ctx.textAlign = 'center';
+    drawAll();
+  }
+
+  function paint(i) {
+    const c = cells[i];
+    const x = (i % cols) * cell, y = ((i / cols) | 0) * cell;
+    ctx.fillStyle = '#050505';
+    ctx.fillRect(x, y, cell, cell);
+    let a = c.base + c.e * 0.8;
+    if (c.redact > 0) {
+      const t = c.redact;
+      ctx.fillStyle = `rgba(${120 + 60 * t | 0},${30 + 10 * t | 0},${28 + 6 * t | 0},${0.18 + 0.55 * t})`;
+      ctx.fillRect(x + 1, y + cell * 0.3, cell - 2, cell * 0.42);
+      return;
+    }
+    if (c.block) {
+      ctx.fillStyle = `rgba(214,208,196,${Math.min(a * 0.6, 0.55)})`;
+    } else {
+      const warm = Math.min(c.e, 1);
+      const r = 214 + (184 - 214) * warm * 0.5, g = 208 + (57 - 208) * warm * 0.55, b = 196 + (46 - 196) * warm * 0.55;
+      ctx.fillStyle = `rgba(${r | 0},${g | 0},${b | 0},${Math.min(a, 0.95)})`;
+    }
+    ctx.fillText(c.ch, x + cell / 2, y + cell / 2 + 1);
+  }
+
+  function drawAll() { for (let i = 0; i < cells.length; i++) paint(i); }
+
+  let last = 0;
+  function frame(t) {
+    const dt = Math.min((t - last) / 1000, 0.05); last = t;
+
+    mouse.x += (mouse.tx - mouse.x) * (reduced ? 1 : 0.16);
+    mouse.y += (mouse.ty - mouse.y) * (reduced ? 1 : 0.16);
+
+    const ambient = reduced ? 4 : 28;
+    for (let k = 0; k < ambient; k++) {
+      const i = (Math.random() * cells.length) | 0;
+      const c = cells[i];
+      if (Math.random() < 0.05) { c.block = !c.block; }
+      c.ch = c.block ? rndBlock() : rndChar();
+      paint(i);
+    }
+    if (!reduced && Math.random() < 0.06) {
+      const i0 = (Math.random() * cells.length) | 0;
+      const len = 3 + (Math.random() * 9) | 0;
+      for (let k = 0; k < len && i0 + k < cells.length; k++) cells[i0 + k].redact = 1;
+    }
+
+    const r2 = RADIUS * RADIUS;
+    const cx0 = Math.max(0, ((mouse.x - RADIUS) / cell) | 0), cx1 = Math.min(cols - 1, ((mouse.x + RADIUS) / cell) | 0);
+    const cy0 = Math.max(0, ((mouse.y - RADIUS) / cell) | 0), cy1 = Math.min(rows - 1, ((mouse.y + RADIUS) / cell) | 0);
+    if (mouse.active) {
+      for (let cy = cy0; cy <= cy1; cy++) for (let cx = cx0; cx <= cx1; cx++) {
+        const dx = cx * cell + cell / 2 - mouse.x, dy = cy * cell + cell / 2 - mouse.y;
+        const d2 = dx * dx + dy * dy;
+        if (d2 > r2) continue;
+        const f = 1 - Math.sqrt(d2) / RADIUS;
+        const c = cells[cy * cols + cx];
+        const target = f * f * 1.15;
+        if (target > c.e) c.e = target;
+        if (Math.random() < f * 0.35) c.ch = c.block ? rndBlock() : rndChar();
+        if (f > 0.55 && Math.random() < 0.012) c.redact = 1;
+      }
+    }
+
+    for (let i = 0; i < cells.length; i++) {
+      const c = cells[i];
+      if (c.e <= 0 && c.redact <= 0) continue;
+      if (c.e > 0) { c.e -= dt * 0.9; if (c.e < 0.004) c.e = 0; }
+      if (c.redact > 0) { c.redact -= dt * 0.55; if (c.redact < 0) c.redact = 0; }
+      paint(i);
+    }
+    requestAnimationFrame(frame);
+  }
+
+  addEventListener('pointermove', e => {
+    mouse.tx = e.clientX; mouse.ty = e.clientY; mouse.active = true;
+  }, { passive: true });
+  addEventListener('pointerleave', () => { mouse.active = false; });
+  addEventListener('touchstart', e => {
+    const t = e.touches[0]; mouse.tx = mouse.x = t.clientX; mouse.ty = mouse.y = t.clientY; mouse.active = true;
+  }, { passive: true });
+  addEventListener('touchend', () => { mouse.active = false; });
+
+
+  let rt; addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(build, 120); });
+
+  (document.fonts ? document.fonts.load('300 13px "JetBrains Mono"') : Promise.resolve())
+    .catch(() => {})
+    .then(() => { build(); requestAnimationFrame(t => { last = t; frame(t); }); });
+})();
+</script>
+<script>
+(() => {
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduced) return;
+  const article = document.querySelector('article');
+
+  const walker = document.createTreeWalker(article, NodeFilter.SHOW_TEXT);
+  const nodes = [];
+  while (walker.nextNode()) if (walker.currentNode.parentElement.closest('p')) nodes.push(walker.currentNode);
+  nodes.forEach(node => {
+    const frag = document.createDocumentFragment();
+    node.nodeValue.split(/(\s+)/).forEach(part => {
+      if (!part) return;
+      if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(part)); return; }
+      const w = document.createElement('span'); w.className = 'w'; w.textContent = part;
+      frag.appendChild(w);
+    });
+    node.parentNode.replaceChild(frag, node);
+  });
+  {
+    const all = [...article.querySelectorAll('.w')];
+    all.forEach((w, i) => {
+      if (i > 0 && /^[^\p{L}\p{N}]+$/u.test(w.textContent)) {
+        all[i - 1].textContent += w.textContent;
+        w.remove();
+      }
+    });
+  }
+  const words = [...article.querySelectorAll('.w')];
+  const keys = [...article.querySelectorAll('.k')];
+  const rnd = (a, b) => a + Math.random() * (b - a);
+  const pick = arr => arr[(Math.random() * arr.length) | 0];
+
+  function twitch() {
+    const n = Math.random() < 0.3 ? 2 : 1;
+    for (let i = 0; i < n; i++) {
+      const w = pick(words);
+      const hard = Math.random() < 0.14;
+      w.style.transform = `translate(${rnd(-1.6, 1.6).toFixed(1)}px,${rnd(-1.2, 1.2).toFixed(1)}px) scale(${rnd(hard ? .95 : .985, hard ? 1.05 : 1.02).toFixed(3)})`;
+      w.style.marginLeft = Math.random() < .5 ? `${rnd(0, 3).toFixed(1)}px` : '';
+      w.style.marginRight = Math.random() < .5 ? `${rnd(0, 3).toFixed(1)}px` : '';
+      if (hard) w.style.filter = `blur(${rnd(.3, .8).toFixed(2)}px)`;
+      if (Math.random() < .08) w.style.opacity = rnd(.3, .7).toFixed(2);
+      setTimeout(() => { w.style.transform = ''; w.style.marginLeft = ''; w.style.marginRight = ''; w.style.filter = ''; w.style.opacity = ''; }, rnd(200, 800));
+    }
+    setTimeout(twitch, rnd(350, 1100));
+  }
+
+  function drift() {
+    const jerk = Math.random() < 0.15;
+    article.style.transition = jerk ? 'transform .04s linear' : 'transform .35s steps(3,end)';
+    article.style.transform = `translate(${rnd(-3, 3).toFixed(1)}px,${rnd(-2.5, 2.5).toFixed(1)}px)`;
+    setTimeout(drift, jerk ? rnd(120, 400) : rnd(2500, 7000));
+  }
+
+  function blink() {
+    const k = pick(keys);
+    k.classList.remove('blink'); void k.offsetWidth; k.classList.add('blink');
+    k.addEventListener('animationend', () => k.classList.remove('blink'), { once: true });
+    setTimeout(blink, rnd(4500, 11000));
+  }
+
+  setTimeout(twitch, 2200);
+  setTimeout(drift, 2600);
+  setTimeout(blink, 2400);
+})();
+</script>
 </body>
 </html>
